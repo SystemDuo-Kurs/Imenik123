@@ -1,48 +1,27 @@
-﻿bool izlaz = false;
-List<string> Imena = new();
+﻿List<Osoba> osobas = new();
+bool izlaz = false;
 
 do
 {
     StampajMeni();
+
+    Digitron.Oduzimanje(2, 3);
     Console.Write("Izbor? ");
+
     string izb = Console.ReadLine();
     switch (izb)
     {
         case "1":
-            Console.Write("Unesi ime: ");
-            Imena.Add(Console.ReadLine());
+            Unos();
             break;
 
         case "2":
-            for (int indeks = 0; indeks < Imena.Count; indeks++)
-            {
-                Console.WriteLine($"{indeks + 1}. {Imena[indeks]}");
-            }
-            Console.WriteLine("=====================");
-            foreach (string ime in Imena)
-            {
-                Console.WriteLine(ime);
-            }
-
-            int index = 0;
-            while (index < Imena.Count)
-            {
-                Console.WriteLine($"{index + 1}. {Imena[index]}");
-                index++;
-            }
+            Ispis();
             Console.ReadKey();
             break;
 
         case "3":
-            if (Imena.Remove(Console.ReadLine()))
-            {
-                Console.WriteLine("Uspesno obrisan");
-            }
-            else
-            {
-                Console.WriteLine("Jok");
-            }
-            Imena.RemoveAt(2);
+            Brisanje();
             break;
 
         case "4":
@@ -65,4 +44,44 @@ void StampajMeni()
     Console.WriteLine("~~3. Brisanje~~");
     Console.WriteLine("~~4. Izlaz~~");
     Console.WriteLine("*********************");
+}
+
+void Unos()
+{
+    /*Osoba o = new();
+    Console.Write("Unesi ime: ");
+    o._ime = Console.ReadLine();
+    Console.Write("Unesi prezime: ");
+    o._prezime = Console.ReadLine();
+    osobas.Add(o);*/
+    osobas.Add(new());
+    Console.Write("Unesi ime: ");
+    osobas.Last()._ime = Console.ReadLine();
+    Console.Write("Unesi prezime: ");
+    osobas.Last()._prezime = Console.ReadLine();
+}
+
+void Ispis()
+{
+    int dex = 0;
+    foreach (Osoba o in osobas)
+    {
+        Console.WriteLine($"{++dex}. {o._ime} {o._prezime}");
+    }
+}
+
+void Brisanje()
+{
+    Console.Write("Unesite indeks: ");
+    int i = int.Parse(Console.ReadLine()) - 1;
+
+    if (i >= 0 && i < osobas.Count)
+    {
+        osobas.RemoveAt(i);
+    }
+    else
+    {
+        Console.WriteLine("Jooook");
+        Console.ReadKey();
+    }
 }
